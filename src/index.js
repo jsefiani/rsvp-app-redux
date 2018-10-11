@@ -23,10 +23,6 @@ store.dispatch(addGuest({
     name: "Jawad",
 }));
 
-store.dispatch(addGuest({
-    name: "Nawal",
-}));
-
 
 const jsx = (
     <Provider store={store}>
