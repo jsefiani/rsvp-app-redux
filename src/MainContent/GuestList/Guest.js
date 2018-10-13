@@ -6,7 +6,7 @@ const Guest = (props) =>
     <li>
         <GuestName 
             isEditing={props.isEditing}
-            handleNameEdits={e => props.setName(e.target.value)}
+            handleNameEdits={e => props.editName(e.target.value)}
         >
             {props.name}
         </GuestName>
@@ -18,7 +18,7 @@ const Guest = (props) =>
             /> Confirmed
         </label>
         <button onClick={props.handleToggleEditing}>{props.isEditing ? "Save" : "Edit"}</button>
-        <button onClick={props.handleRemove}>remove</button>
+        <button onClick={props.handleDelete}>remove</button>
     </li>;
 
 export default Guest;

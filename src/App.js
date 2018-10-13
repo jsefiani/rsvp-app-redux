@@ -4,7 +4,14 @@ import { connect } from "react-redux";
 import Header from './Header';
 import MainContent from './MainContent';
 
+import { getGuests } from "./actions/apiActions";
+
+
 class App extends Component {
+
+  componentDidMount() {
+    this.props.getGuests()
+  }
   
   getTotalInvited = () => this.props.guests.length;
   
@@ -37,4 +44,10 @@ const mapStateToProps = (state, props) => {
   }
 }
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    getGuests: () => dispatch(getGuests())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

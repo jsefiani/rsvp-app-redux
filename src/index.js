@@ -19,10 +19,6 @@ store.subscribe(() => {
     console.log(state);
 })
 
-store.dispatch(addGuest({
-    name: "Jawad",
-}));
-
 
 const jsx = (
     <Provider store={store}>

@@ -2,22 +2,19 @@ const rsvpReducerDefaultState = [];
 
 const rsvpReducer = (state = rsvpReducerDefaultState, action) => {
     switch(action.type) {
-        case "ADD_GUEST":
+        case "GET_GUESTS":
+            return state
+
+        case "GUESTS_FETCH_SUCCEEDED":
+            return [...state, ...action.guests]
+
+        case "ADD_GUEST_SUCCEEDED":
             return [...state, action.guest];
 
-        case "REMOVE_GUEST":
+        case "DELETE_GUEST_SUCCEEDED":
             return state.filter((guest) => guest.id !== action.id)
 
-        case "EDIT_GUEST":
-            return state.map(guest => {
-                if(action.id === guest.id) {
-                    return {...guest, ...action.updates};
-                } else {
-                    return guest;
-                }
-            })
-
-        case "TOGGLE_CONFIRMATION_GUEST": 
+        case "TOGGLE_CONFIRMATION_GUEST_SUCCEEDED": 
             return state.map(guest => {
                 if(action.id === guest.id) {
                     return {...guest, isConfirmed: !guest.isConfirmed}
@@ -35,7 +32,7 @@ const rsvpReducer = (state = rsvpReducerDefaultState, action) => {
                 }
             })
 
-        case "SET_NAME_GUEST":
+        case "UPDATE_GUEST_SUCCEEDED":
             return state.map(guest => {
                 if(action.id === guest.id) {
                     return {...guest, name: action.name}

@@ -5,7 +5,7 @@ import PendingGuest from './PendingGuest';
 import { connect } from "react-redux";
 
 // Import actions
-import { removeGuest, toggleConfirmation, toggleEditing, setNameGuest } from "../../actions/rsvpActions";
+import { deleteGuest, toggleConfirmation, toggleEditing, editNameGuest } from "../../actions/rsvpActions";
 
 
 export class GuestList extends React.Component {
@@ -13,20 +13,20 @@ export class GuestList extends React.Component {
         super(props)
     }
 
-    onRemoveGuest = (id) => {
-        this.props.removeGuest({ id })
+    onDeleteGuest = (id) => {
+        this.props.deleteGuest(id);
     }
 
-    toggleConfirmation = (id) => {
-        this.props.toggleConfirmation(id)
+    toggleConfirmation = ({ id, isConfirmed, name}) => {
+        this.props.toggleConfirmation(id, isConfirmed, name)
     }
 
     toggleEditing = (id) => {
         this.props.toggleEditing(id)
     }
 
-    setName = (newName, id) => {
-        this.props.setNameGuest(newName, id)
+    onEditName = ({name, id, isConfirmed}) => {
+        this.props.editNameGuest(name, id, isConfirmed);
     }
 
     render() {
@@ -41,10 +41,10 @@ export class GuestList extends React.Component {
                             name={guest.name} // Done
                             isConfirmed={guest.isConfirmed} // Done
                             isEditing={guest.isEditing} // Done
-                            handleConfirmation={() => this.toggleConfirmation(guest.id)} // Done
+                            handleConfirmation={() => this.toggleConfirmation(guest)} // Done
                             handleToggleEditing={() => this.toggleEditing(guest.id)} // Done
-                            setName={text => this.setName(text, guest.id)} // Done
-                            handleRemove={() => this.onRemoveGuest(guest.id)} // Done
+                            editName={name => this.onEditName({...guest, name})} // Done
+                            handleDelete={() => this.onDeleteGuest(guest.id)} // Done
                         />
                     )
                 }
@@ -63,10 +63,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        removeGuest: (id) => dispatch(removeGuest(id)),
-        toggleConfirmation: (id) => dispatch(toggleConfirmation(id)),
+        deleteGuest: (id) => dispatch(deleteGuest(id)), 
+        toggleConfirmation: (id, isConfirmed, name) => dispatch(toggleConfirmation(id, isConfirmed, name)),
         toggleEditing: (id) => dispatch(toggleEditing(id)),
-        setNameGuest: (newName, id) => dispatch(setNameGuest(newName, id))
+        editNameGuest: (newName, id, isConfirmed) => dispatch(editNameGuest(newName, id, isConfirmed))
     }
 }
 

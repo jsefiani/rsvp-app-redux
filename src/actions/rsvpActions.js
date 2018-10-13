@@ -1,29 +1,18 @@
-import uniqid from "uniqid";
-
-export const addGuest = ({ name }) => ({
+export const addGuest = ({name}) => ({
     type: "ADD_GUEST",
-    guest: {
-        id: uniqid(),
-        name,
-        isConfirmed: false,
-        isEditing: false
-    }
+    name
 });
 
-export const removeGuest = ({id}) => ({
-    type: "REMOVE_GUEST",
+export const deleteGuest = (id) => ({
+    type: "DELETE_GUEST",
     id
 });
 
-export const editGuest = (id, updates) => ({
-    type: "EDIT_GUEST",
-    id, 
-    updates
-});
-
-export const toggleConfirmation = (id) => ({
+export const toggleConfirmation = (id, isConfirmed, name) => ({
     type: "TOGGLE_CONFIRMATION_GUEST",
-    id
+    id,
+    isConfirmed,
+    name,
 })
 
 export const toggleEditing = (id) => ({
@@ -31,10 +20,11 @@ export const toggleEditing = (id) => ({
     id
 })
 
-export const setNameGuest = (name, id) => ({
-    type: "SET_NAME_GUEST",
+export const editNameGuest = (name, id, isConfirmed) => ({
+    type: "EDIT_NAME",
     name,
     id,
+    isConfirmed,
 })
 
 export const setPendingGuest = (nameInput) => ({
