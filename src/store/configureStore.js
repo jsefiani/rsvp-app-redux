@@ -20,11 +20,11 @@ export default () => {
             isFiltered: filterReducer,
             guests: rsvpReducer
         }),
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
         applyMiddleware(sagaMiddleware),
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     );
 
-    sagaMiddleware.run(rootSaga);
+    sagaMiddleware.run(rootSaga)
 
     return store;
 };
